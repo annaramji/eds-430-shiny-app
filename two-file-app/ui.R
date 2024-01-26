@@ -26,19 +26,40 @@ ui <- navbarPage(
                         # trout sidebarPanel ----
                         sidebarPanel(
                           
-                          "trout inputs will live here"
+                          # channel type pickerInput ----
+                          pickerInput(inputId = "channel_type_input",
+                                      label = "Select channel type(s):",
+                                      choices = unique(clean_trout$channel_type), # produces a vector, all the same data type. alternatively: choices = c("rapid", "cascade" ...)
+                                      selected = c("cascade", "pool"),
+                                      options = pickerOptions(actionsBox = TRUE), # lets you select all or deselect all 
+                                      multiple = TRUE # you can select multiple channel type options
+                          ), # END channel type pickerInput
+                          
+                          # section checkboxGroupButtons ----
+                          checkboxGroupButtons(inputId = "section_input",
+                                               label = "Select a sampling section(s):",
+                                               choices = c("clear cut forest", "old growth forest"),
+                                               selected = c("clear cut forest", "old growth forest"),
+                                               individual = FALSE,
+                                               justified = TRUE, # width of buttons take up full width of parent div (width of sidebar panel in this case)
+                                               size = "sm", # small buttons
+                                               # add icons to buttons that change as they're toggled on and off
+                                               checkIcon = list(yes = icon(name = "square-check"),
+                                                                no = icon(name = "xmark"))
+                                               
+                          ) # END section checkboxGroupButtons
                           
                         ), # END trout sidebarPanel
                         
                         # trout main panel ----
                         mainPanel(
                           
-                          "trout output will live here"
+                          # trout scatterplot output ----
+                          plotOutput(outputId = "trout_scatterplot_output")
                           
                         ) # END trout mainPanel
                         
                       ) # END trout sidebarLayout
-                      
                       
              ), # END trout tabPanel
              
@@ -64,14 +85,11 @@ ui <- navbarPage(
                         
                       ) # END penguin sidebarLayout
                       
-                      
              ) #END penguins tabPanel
              
            ) # END tabsetPanel
            
-           
   ) # END Page 2) data viz tabPanel
-  
   
 ) # END navbarPage
 
