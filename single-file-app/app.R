@@ -29,7 +29,7 @@ ui <- fluidPage(
   
   # add year check box ----
   checkboxGroupInput(inputId = "year_input", label = "Selected year(s): ",
-                     choices = c("2007", "2008", "2009"),
+                     choices = c("This is the year 2007"= 2007, 2008, 2009),
                      selected = c("2007", "2008")),
   
   # add data table output ----
