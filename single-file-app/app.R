@@ -25,7 +25,16 @@ ui <- fluidPage(
               value = c(3000, 4000)),
   
   # body mass slider output ----
-  plotOutput(outputId = "bodyMass_scatterplot_output")
+  plotOutput(outputId = "bodyMass_scatterplot_output"),
+  
+  # add year check box ----
+  checkboxGroupInput(inputId = "year_input", label = "Selected year(s): ",
+                     choices = c("2007", "2008", "2009"),
+                     selected = c("2007", "2008")),
+  
+  # add data table output ----
+  DT::dataTableOutput(outputId = "year_datatable_output")
+  
   
 )
 
@@ -56,12 +65,18 @@ server <- function(input, output) {
                color = species,
                shape = species)) +
       geom_point() +
-      # add Allison's colors
-      # adding Species name assignment to colors and shapes to avoid auto-assigning at selective ranges (i.e., Gentoo becomes orange circle at 5-6000 range, which is confusing/bad for user)
-      scale_color_manual(values = c("Adelie" = "darkorange", "Chinstrap" = "purple", "Gentoo" = "cyan4")) +
-      scale_shape_manual(values = c("Adelie" = 19, "Chinstrap" = 17, "Gentoo" = 15)) +
-      labs(x = "Flipper length (mm)", y = "Bill length (mm)",
-           color = "Penguin species", shape = "Penguin species") +
+    # add Allison's colors
+    # adding Species name assignment to colors and shapes to avoid auto-assigning at selective ranges (i.e., Gentoo becomes orange circle at 5-6000 range, which is confusing/bad for user)
+      scale_color_manual(values = c("Adelie" = "darkorange",
+                                    "Chinstrap" = "purple",
+                                    "Gentoo" = "cyan4")) +
+      scale_shape_manual(values = c("Adelie" = 19,
+                                    "Chinstrap" = 17,
+                                    "Gentoo" = 15)) +
+      labs(x = "Flipper length (mm)",
+           y = "Bill length (mm)",
+           color = "Penguin species",
+           shape = "Penguin species") +
       theme_minimal() +
       # move legend and update background color
       
@@ -69,8 +84,27 @@ server <- function(input, output) {
             legend.background = element_rect(color = "white")
       )
     
-  }
-  )
+  })
+  
+  
+  # filter data frame for years from checkbox input to feed into data table output ----
+  years_df <- reactive({
+    
+    penguins |> 
+    filter(year %in% c(input$year_input))
+    
+  })
+  
+  
+  # build data table output ----
+  output$year_datatable_output <- DT::renderDataTable({
+    
+    DT::datatable(years_df(),
+                  options = list(pagelength = 10),
+                  rownames = FALSE)
+    
+  })
+  
   
 }
 

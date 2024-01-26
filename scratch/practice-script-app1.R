@@ -47,3 +47,9 @@ ggplot(na.omit(penguins),
   theme(legend.position = c(0.85, 0.2), # x,y coordinate to move the legend (can also say top, bottom, corner, etc.)
         legend.background = element_rect(color = "white")
         )
+
+
+# building filtered year datatable
+
+year_df <- penguins |> 
+  filter(year %in% c(2007, 2008, 2009))
