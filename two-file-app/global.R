@@ -6,10 +6,21 @@ library(lterdatasampler)
 library(palmerpenguins)
 
 
+# custom ggplot theme (apply to both plots) ----
+
+myCustomTheme <- function() {
+  theme_light() +
+    theme(axis.text = element_text(size = 12),
+          axis.title = element_text(size = 14, face = "bold"),
+          legend.title = element_text(size = 14, face = "bold"),
+          legend.text = element_text(size = 13),
+          legend.position = "bottom",
+          panel.border = element_rect(linewidth = 0.7))
+}
+
 # cutthroat trout ----
 
-
-#.......................wrangle trout data.......................
+#.......................wrangle trout data...................
 clean_trout <- and_vertebrates |>
   filter(species == "Cutthroat trout") |>
   select(sampledate, section, species, length_mm = length_1_mm, weight_g, channel_type = unittype) |> 
@@ -28,22 +39,3 @@ clean_trout <- and_vertebrates |>
   )) |> 
   drop_na()
 
-
-# custom ggplot theme (apply to both plots) ----
-myCustomTheme <- function() {
-  theme_light() +
-    theme(axis.text = element_text(size = 12),
-          axis.title = element_text(size = 14, face = "bold"),
-          legend.title = element_text(size = 14, face = "bold"),
-          legend.text = element_text(size = 13),
-          legend.position = "bottom",
-          panel.border = element_rect(linewidth = 0.7))
-}
-
-
-
-# penguins ----
-
-#..................practice filtering for island.................
-island_df <- penguins %>%
-  filter(island %in% c("Dream", "Torgesen"))

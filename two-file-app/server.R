@@ -36,8 +36,35 @@ server <- function(input, output) {
            y = "Trout Weight (g)",
            color = "Channel Type",
            shape = "Channel Type") +
-      myCustomTheme()
+      myCustomTheme() # sourced from global.R
     
   }) # END trout scatterplot
+  
+  # penguins filter ----
+  
+  penguins_filtered_df <- reactive({ penguins |> 
+      
+      filter(island %in% c(input$island_input))
+  })
+  
+  
+  # penguins scatterplot ----
+  output$penguins_scatterplot_output <- renderPlot({
+    
+    ggplot(na.omit(penguins_filtered_df()), # reactive filtered df
+           aes(x = flipper_length_mm,
+               fill = species)) +
+      geom_histogram(alpha = 0.6,
+                     position = "identity", # keep values on x-axis (not stacked)
+                     bins = input$bins_input) + # user input bin size
+      scale_fill_manual(values = c("Adelie" = "#FEA346", # orange
+                                   "Chinstrap" = "#B251F1", # purple 
+                                   "Gentoo" = "#4BA4A4")) + # cyan4
+      labs(x = "Flipper length (mm)",
+           y = "Frequency",
+           fill = "Penguin species") +
+      myCustomTheme() # sourced from global.R
+    
+  })
   
 }

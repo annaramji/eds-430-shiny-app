@@ -55,6 +55,7 @@ ggplot(trout_filtered_df,
   scale_shape_manual(values = c("cascade" = 15,
                                 "riffle" = 17,
                                 "isolated pool" = 19,
+
                                 "pool" = 18,
                                 "rapid" = 8,
                                 "step (small falls)" = 23, 

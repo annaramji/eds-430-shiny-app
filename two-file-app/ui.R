@@ -72,14 +72,30 @@ ui <- navbarPage(
                         # penguin sidebarPanel ----
                         sidebarPanel(
                           
-                          "penguin inputs will live here"
+                          # island pickerInput ----
+                          pickerInput(inputId = "island_input",
+                                      label = "Select Island(s):",
+                                      choices = unique(penguins$island),
+                                      selected = c("Dream", "Torgersen"),
+                                      options = pickerOptions(actionsBox = TRUE),
+                                      multiple = TRUE # select multiple islands
+                          ), # END island pickerInput
+                          
+                          # bin number (bins) sliderInput ----
+                          sliderInput(inputId = "bins_input",
+                                      label = "Select number of bins:",
+                                      min = 0,
+                                      max = 100,
+                                      value = 25
+                          ) # END bin number sliderInput
                           
                         ), # END penguin sidebarPanel
                         
                         # penguin mainPanel ----
                         mainPanel(
                           
-                          "penguin outputs will live here :)"
+                          # penguins scatterplot output ----
+                          plotOutput(outputId = "penguins_scatterplot_output")
                           
                         ) # END mainPanel 
                         
