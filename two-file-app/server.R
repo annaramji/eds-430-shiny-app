@@ -5,6 +5,13 @@ server <- function(input, output) {
   
   trout_filtered_df <- reactive({
     
+    # validation test + statements
+    validate(
+      
+      need(length(input$channel_type_input) > 0, "Please select at least one channel type to visualize data for." ),
+      need(length(input$section_input) > 0, "Please select at least one sampling section (clear cut forest or old growth forest)")
+    ) # END validation test + statements
+    
     clean_trout |> 
       filter(channel_type %in% c(input$channel_type_input)) |> 
       filter(section %in% c(input$section_input))
@@ -38,7 +45,14 @@ server <- function(input, output) {
            shape = "Channel Type") +
       myCustomTheme() # sourced from global.R
     
-  }) # END trout scatterplot
+  },
+  # alt text here
+  alt = "This is my alt text and it's not very good right now but we'll improve later. "
+  
+  ) # END trout scatterplot
+  
+  
+  
   
   # penguins filter ----
   
@@ -65,6 +79,10 @@ server <- function(input, output) {
            fill = "Penguin species") +
       myCustomTheme() # sourced from global.R
     
-  })
+  },
+  
+  # alt text here
+  alt = "This is my alt text and it's not very good right now but we'll improve later. "
+  )
   
 }

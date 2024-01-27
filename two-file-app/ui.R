@@ -7,7 +7,20 @@ ui <- navbarPage(
   # (page 1) intro tabPanel ----
   tabPanel(title = "About this page",
            
-           "background info goes here"
+           # introtext fluidRow ----
+           fluidRow(
+             
+             column(1), # buffer
+             # full width = 12 (always needs to add to 12)
+             column(10, includeMarkdown("text/about.md")),
+             column(1) # gives buffer room alongside text
+             
+           ), # END introtext fluidRow
+           
+           # adds row 
+           hr(),
+           
+           includeMarkdown("text/footer.md")
            
   ), # END (page 1) intro tabPanel
   
@@ -55,7 +68,9 @@ ui <- navbarPage(
                         mainPanel(
                           
                           # trout scatterplot output ----
-                          plotOutput(outputId = "trout_scatterplot_output")
+                          plotOutput(outputId = "trout_scatterplot_output") |> 
+                            shinycssloaders::withSpinner(color = "#9F4A96",
+                                                         type = 5)
                           
                         ) # END trout mainPanel
                         
@@ -95,7 +110,10 @@ ui <- navbarPage(
                         mainPanel(
                           
                           # penguins scatterplot output ----
-                          plotOutput(outputId = "penguins_scatterplot_output")
+                          plotOutput(outputId = "penguins_scatterplot_output") |> 
+                            shinycssloaders::withSpinner(color = "cyan4",
+                                                         type = 5,
+                                                         size = 2)
                           
                         ) # END mainPanel 
                         

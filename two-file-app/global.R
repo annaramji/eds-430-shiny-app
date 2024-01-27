@@ -1,9 +1,11 @@
 # load packages ----
 library(shiny)
 library(shinyWidgets)
+library(shinycssloaders)
 library(tidyverse)
 library(lterdatasampler)
 library(palmerpenguins)
+library(markdown) # needed to render, deploy on a server (dependency, not default)
 
 
 # custom ggplot theme (apply to both plots) ----
