@@ -18,7 +18,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
     
     menuItem(text = "Welcome", tabName = "welcome", icon = icon("star")),
-    menuItem(text = "Dahboard", tabName = "dashboard", icon = icon("gauge"))
+    menuItem(text = "Dashboard", tabName = "dashboard", icon = icon("gauge"))
     
   ) # END sidebarMenu
   
@@ -28,6 +28,10 @@ sidebar <- dashboardSidebar(
 # dashboard body ----
 
 body <- dashboardBody(
+  
+  # set theme ----
+  fresh::use_theme("dashboard-fresh-theme.css"),
+  
   
   # tabItems ----
   
@@ -45,7 +49,12 @@ body <- dashboardBody(
                        
                        title = tagList(icon("water"),
                                        strong("Monitoring Fish Creek Watershed")), 
-                       includeMarkdown("text/intro.md")
+                       includeMarkdown("text/intro.md"),
+                       tags$img(src = "FishCreekWatershedSiteMap_2020.jpg",
+                                alt = "A map of Northern Alaska, showing Fish Creek Watershed located within the National Petroleum Reserve.",
+                                style = "max-width: 100%;"), # end image tag
+                       tags$h6(tags$em("Map Source:", tags$a(href = "http://www.fishcreekwatershed.org/", "FCWO")),
+                               style = "text-align: center;")
                        
                        ) # END background info box
               
@@ -157,4 +166,4 @@ body <- dashboardBody(
 
 
 # combine all in a dashboard page ----
-dashboardPage(header, sidebar, body)
+dashboardPage(header, sidebar, body, skin = "black")

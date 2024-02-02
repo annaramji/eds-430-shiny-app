@@ -6,6 +6,14 @@ library(tidyverse)
 library(lterdatasampler)
 library(palmerpenguins)
 library(markdown) # needed to render, deploy on a server (dependency, not default)
+library(sass)
+
+# compile CSS ----
+sass(
+  input = sass_file("www/sass-styles.scss"),
+  output = "www/sass-styles.css",
+  options = sass_options(output_style = "compressed") # OPTIONAL, but speeds up page load time by removing white-space & line-breaks that make css files more human-readable
+)
 
 
 # custom ggplot theme (apply to both plots) ----

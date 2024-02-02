@@ -1,6 +1,13 @@
 # user interface ----
 ui <- navbarPage(
   
+  # add css file ----
+  header = tags$head(
+    tags$link(rel = "stylesheet",
+              type = "text/css",
+              href = "sass-styles.css")
+  ),
+  
   # add title
   title = "LTER Animal Data Explorer",
   

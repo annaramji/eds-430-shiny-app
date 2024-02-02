@@ -2,11 +2,28 @@
 library(shiny)
 library(palmerpenguins)
 library(tidyverse)
+library(bslib)
+
+
+thematic::thematic_shiny()
 
 # user interface ----
 # standard naming convention
 # fluidPage creates the user interface that allows people to view it in the browser, does stuff under the hood. If we want to see stuff rendered in our UI, we'll need to add it in fluidPage
 ui <- fluidPage(
+  
+  # set theme ----
+  theme = bs_theme(
+    
+    bg = "#a36f6f",
+    fg = "#FDF7f7",
+    primary = "#483132",
+    base_font = font_google("Pacifico")
+    
+  #  bootswatch = "minty" # defaults, could also do solar, etc.
+    
+    
+    ), # END theme
   
   # app title ----
   # update styling with parallel common HTML tags
