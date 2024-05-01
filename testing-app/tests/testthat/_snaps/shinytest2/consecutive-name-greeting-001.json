@@ -1,0 +1,12 @@
+{
+  "input": {
+    "greeting_button_input": 2,
+    "name_input": "Anna"
+  },
+  "output": {
+    "greeting_output": "Hello Anna!"
+  },
+  "export": {
+
+  }
+}
