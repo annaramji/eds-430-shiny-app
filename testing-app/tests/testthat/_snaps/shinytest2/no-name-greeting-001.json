@@ -4,7 +4,7 @@
     "name_input": ""
   },
   "output": {
-    "greeting_output": "Hello !"
+    "greeting_output": "Please type a name, then click the Greet button."
   },
   "export": {
 
