@@ -68,4 +68,34 @@ ui <- fluidPage(
     
   ), # END fluidRow (Feature 2: file upload)
   
+  tags$hr(),
+  
+  # Feature 3 ------------------------------------------------------------------
+  
+  h3("Feature 3"),
+  
+  # fluidRow (Feature 3: plot) -----
+  fluidRow(
+    
+    # plot sidebarLayout ----
+    sidebarLayout(
+      
+      # plot sidebarPanel ----
+      sidebarPanel(
+        
+        penguinSpp_pickerInput(inputId = "penguinSpp_scatterplot_input")
+        
+      ), # END plot sidebarPanel
+      
+      # plot mainPanel ----
+      mainPanel(
+        
+        plotOutput(outputId = "scatterplot_output")
+        
+      ) # END plot mainPanel
+      
+    ) # END plot sidebarLayout
+    
+  ) # END fluidRow (Feature 3: plot)
+  
 ) # END fluidPage 

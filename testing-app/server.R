@@ -65,6 +65,35 @@ server <- function(input, output) {
              "Total Number of Observations" = "tot_num_obs")
     return(df_summary)
     
-  }) # END renderTable
+  })
+  
+  # Feature 3 ------------------------------------------------------------------
+  
+  # filter penguin spp (scatterplot) ----
+  filtered_spp_scatterplot_df <- reactive({
+    
+    validate(
+      need(length(input$penguinSpp_scatterplot_input) > 0, "Please select at least one penguin species to visualize data for."))
+    
+    penguins |>
+      filter(species %in% input$penguinSpp_scatterplot_input)
+    
+  })
+  
+  # render scatterplot ----
+  output$scatterplot_output <- renderPlot({
+    
+    ggplot(na.omit(filtered_spp_scatterplot_df()),
+           aes(x = bill_length_mm, y = bill_depth_mm,
+               color = species, shape = species)) +
+      geom_point() +
+      geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+      scale_color_manual(values = c("Adelie" = "darkorange", "Chinstrap" = "purple", "Gentoo" = "cyan4")) +
+      scale_shape_manual(values = c("Adelie" = 19, "Chinstrap" = 17, "Gentoo" = 15)) +
+      labs(x = "Flipper length (mm)", y = "Bill length (mm)",
+           color = "Penguin species", shape = "Penguin species") +
+      theme(legend.position = "bottom")
+    
+  })
   
 } # END server
